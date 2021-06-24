@@ -1,0 +1,60 @@
+<div class="grid-container d-flex flex-column justify-content-center">
+  <div class="d-flex justify-content-between px-4 header-container">
+    <div class="d-flex flex-row align-items-center bg-white border px-1">
+      <input matInput #input type="text" placeholder="Filter">
+      <i *ngIf="!offlineMode" class="material-icons">search</i>
+    </div>
+    <button *ngIf="!offlineMode" class="btn btn-primary" (click)="saveOfflineData()">save offline data</button>
+  </div>
+  <div class="h-75">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-2 w-100 table-scrollable">
+      <ng-container *ngIf="!offlineMode" matColumnDef="checkbox">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let element">
+          <input type="checkbox" [checked]="element.isStoredInOfflineMode" (change)="checkboxChanged($event,element)">
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="alpha3Code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Alpha3Code </th>
+        <td mat-cell *matCellDef="let element"> {{element.alpha3Code}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="capital">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Capital </th>
+        <td mat-cell *matCellDef="let element"> {{element.capital}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="population">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Population </th>
+        <td mat-cell *matCellDef="let element"> {{element.population}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="borders">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> borders </th>
+        <td mat-cell *matCellDef="let element">
+          <button class="btn btn-info" (click)="openBordersModal(element)"><i
+              class="fas fa-mountain"></i>Borders</button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nodata">
+        <td mat-footer-row *matFooterCellDef [colSpan]="displayedColumns.length" 
+        style="text-align: center;">No Data Available</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-footer-row 
+      [hidden]="dataSource.data.length >0"
+     *matFooterRowDef="['nodata']">
+    </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

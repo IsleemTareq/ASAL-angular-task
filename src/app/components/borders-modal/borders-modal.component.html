@@ -1,0 +1,30 @@
+<div class="d-flex flex-row-reverse">
+    <button type="button" class="btn-close" (click)="close()" aria-label="Close"></button>
+</div>
+<div class="px-4">
+    <table class="w-100 mt-2 table table-bordered table-striped">
+        <thead class="table table-bordered">
+            <th class="px-1">
+                name
+            </th>
+            <th class="px-1">
+                region
+            </th>
+            <th class="px-1">
+                area
+            </th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of data.borders">
+                <td>{{country.name}}</td>
+                <td>{{country.region}}</td>
+                <td>{{country.area}}</td>
+            </tr>
+            <tr class="mat-row" *ngIf="!data.borders.length">
+                <td class="mat-cell text-center" colspan="9999">
+                    No Data Available
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
